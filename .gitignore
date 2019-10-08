@@ -1,4 +1,5 @@
 libreoffice/
+log.*
 
 # Created by https://www.gitignore.io/api/vim,linux,macos,windows,libreoffice
 # Edit at https://www.gitignore.io/?templates=vim,linux,macos,windows,libreoffice

@@ -14,7 +14,7 @@ ENV LANG=en_US.UTF-8 \
 ADD sources.list /etc/apt/sources.list
 
 RUN apt-get -y update && \
-    apt-get -y --no-install-recommends install build-essential git libkrb5-dev graphviz wget vim && \
+    apt-get -y --no-install-recommends install build-essential git gstreamer1.0-libav libkrb5-dev nasm graphviz ccache && \
     apt-get -y -t buster-backports build-dep libreoffice && \
     rm -rf /var/lib/apt/lists/*
 

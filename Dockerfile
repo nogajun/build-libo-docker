@@ -4,7 +4,12 @@ LABEL tv.nofuture.name="libo-build" \
       tv.nofuture.version="0.1" \
       tv.nofuture.maintainer="Jun Nogata <nogajun@gmail.com>"
 
-ENV DEBIAN_FRONTEND=noninteractive 
+RUN locale-gen en_US.UTF-8
+
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8 \
+    DEBIAN_FRONTEND=noninteractive 
 
 ADD sources.list /etc/apt/sources.list
 

@@ -7,9 +7,13 @@ Docker環境内でビルドするためのDockerfileなどです。
 How to use
 ----------
 
-### Dockerイメージをpullする
+### Dockerイメージをpullする（または手元でビルドする）
 
     $ docker pull nogajun/libodev
+
+手元でビルドする人は、こんな感じ
+
+    $ docker build -t libo-build .
 
 ### LibreOfficeソースコードをgit cloneする
 

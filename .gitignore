@@ -1,7 +1,8 @@
-libreoffice/
+libreoffice
 log.*
 .cache/
 .ccache/
+VCL.xcu
 
 # Created by https://www.gitignore.io/api/vim,linux,macos,windows,libreoffice
 # Edit at https://www.gitignore.io/?templates=vim,linux,macos,windows,libreoffice

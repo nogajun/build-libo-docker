@@ -11,4 +11,4 @@ docker run --rm \
   -v $PWD/.cache:/cache \
   -v $PWD/.ccache:/ccache \
   nogajun/libodev \
-  /bin/bash -c 'cd /libreoffice && ./autogen.sh && make' 2>&1 | tee log.$(date "+%Y%m%d%H%M%S")
+  /bin/bash -c 'ccache --max-size 32G;cd /libreoffice && ./autogen.sh && make' 2>&1 | tee log.$(date "+%Y%m%d%H%M%S")

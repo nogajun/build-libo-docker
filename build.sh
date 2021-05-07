@@ -1,14 +1,14 @@
 #!/bin/sh
 
-mkdir -p $PWD/.cache $PWD/.ccache
+mkdir -p $(pwd)/.cache $(pwd)/.ccache
 
 docker run --rm \
-  --name libobuild \
+  --name libodev \
   --cap-add SYS_ADMIN \
   --security-opt apparmor:unconfined \
   --user $(id -u):$(id -g) \
-  -v $PWD/libreoffice:/libreoffice \
-  -v $PWD/.cache:/cache \
-  -v $PWD/.ccache:/ccache \
-  nogajun/libodev \
-  /bin/bash -c 'ccache --max-size 32G;cd /libreoffice && ./autogen.sh && make' 2>&1 | tee log.$(date "+%Y%m%d%H%M%S")
+  --mount type=bind,src=$(pwd)/libreoffice,dst=/usr/src/libreoffice \
+  --mount type=bind,src=$(pwd)/.cache,dst=/cache \
+  --mount type=bind,src=$(pwd)/.ccache,dst=/ccache \
+  libodev \
+  /bin/bash -c 'cd /usr/src/libreoffice && ./autogen.sh && make' 2>&1 | tee log.$(date "+%Y%m%d%H%M%S")

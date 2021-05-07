@@ -1,7 +1,7 @@
 Build LibreOffice in Docker
 ===========================
 
-Docker環境内でビルドするためのDockerfileなどです。
+LinuxのLibreOfficeバイナリをDockerのクリーンルームでビルドするためのDockerfileなどです。
 
 
 How to use
@@ -13,11 +13,12 @@ How to use
 
 手元でビルドする人は、こんな感じ
 
-    $ docker build -t libo-build .
+    $ docker build -t libodev .
 
 ### LibreOfficeソースコードをgit cloneする
 
-ソースコードのクローンは恐ろしいぐらい時間がかかります。（遅いと半日かかるレベル）ちょっと試してみたいという人は、 --depth 1 オプションをつけてクローンしてください。これなら、30分ほどでソースコードを持ってくることができます。
+ソースコードのクローンは恐ろしいぐらい時間がかかります。（遅いと半日かかるレベル）ちょっと試してみたいという人は、 --depth 1 オプションをつけてクローンしてください。
+これなら、30分ほどでソースコードを持ってくることができます。
 
 お試しの場合（30分コース）
 
@@ -34,10 +35,20 @@ How to use
 
 ### LibreOfficeをビルドする
 
-    $ docker run --rm --name libobuild --cap-add SYS_ADMIN --security-opt apparmor:unconfined --user $(id -u):$(id -g) -v $PWD/libreoffice:/libreoffice nogajun/libodev /bin/bash -c 'cd /libreoffice && ./autogen.sh && make' 2>&1 | tee log.$(date "+%Y%m%d%H%M%S")
+以下のコマンドでビルドできます。
+
+    $ docker run --rm \
+      --name libodev \
+      --cap-add SYS_ADMIN \
+      --security-opt apparmor:unconfined \
+      --user $(id -u):$(id -g) \
+      --mount type=bind,src=$(pwd)/libreoffice,dst=/usr/src/libreoffice \
+      --mount type=bind,src=$(pwd)/.cache,dst=/cache \
+      --mount type=bind,src=$(pwd)/.ccache,dst=/ccache \
+      nogajun/libodev \
+      /bin/bash -c 'cd /usr/src/libreoffice && ./autogen.sh && make' 2>&1 | tee log.$(date "+%Y%m%d%H%M%S")
 
 もしくは、このリポジトリにあるbuild.shを使う（上と同じです）
+build.shは、カレントディレクトリ直下にソースコードがあることと、ccacheのキャッシュフォルダーを作る前提なので気をつけてください。
 
     $ ./build.sh
-
-
